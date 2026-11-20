@@ -1,0 +1,41 @@
+name: Public release verification
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    name: Fresh package verification
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Rebuild, authenticate and test
+        run: |
+          set -euo pipefail
+          python3 -B tools/build_public.py
+          (cd dist && sha256sum --strict -c ../release/RUNTIME-SHA256SUMS)
+          openssl pkeyutl -verify -rawin -pubin -inkey release/RELEASE-PUBLIC.pem -in dist/singbox-fresh-1.11.2.tar.gz -sigfile release/RUNTIME.sig
+          bash tests/bootstrap.sh "$PWD/dist/singbox-fresh-1.11.2.tar.gz"
+          python3 -B tools/build_source.py
+          mkdir "$RUNNER_TEMP/source-rebuild"
+          tar xf dist/singbox-source-1.11.2.tar.gz -C "$RUNNER_TEMP/source-rebuild"
+          cd "$RUNNER_TEMP/source-rebuild/singbox-source-1.11.2"
+          python3 -B tools/build_public.py
+          python3 -B tools/build_source.py
+          cmp dist/singbox-fresh-1.11.2.tar.gz "$GITHUB_WORKSPACE/dist/singbox-fresh-1.11.2.tar.gz"
+          cmp dist/singbox-source-1.11.2.tar.gz "$GITHUB_WORKSPACE/dist/singbox-source-1.11.2.tar.gz"
+  core:
+    name: Patched core source verification
+    if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Build the accounting core from source and run native tests
+        env:
+          SBOX_CORE_BUILD_CACHE: ${{ runner.temp }}/fresh-core-build
+        run: bash core-source/build.sh

@@ -1,0 +1,43 @@
+{
+  "observed_at_utc": "2026-11-20T11:23:29Z",
+  "patch_sha256": "7a898f0e00c726a786dd4899ce3886eeb9cda9d3884dc41c986480c786658ff6",
+  "accepted": [
+    {
+      "version": "v1.14.4",
+      "result": "Pristine patch application, native quota and bounded endpoint readiness tests, and SHA-256-verified release build",
+      "binary_sha256": "25a6e34ac9783adaa1d4576c3f76360291c274506fbb53b1fb8fb43452bb925d"
+    }
+  ],
+  "historical_patch": {
+    "observed_at_utc": "2026-11-20T10:51:42Z",
+    "patch_sha256": "92ce90d33a441eb2cd56ceaba731c06e0d8bfa4cfcec5e187defa6d054b1988f",
+    "accepted": [
+      {
+        "version": "v1.14.4",
+        "result": "Native mixed TCP/UDP managed-user reservation tests; release build SHA-256 verified",
+        "binary_sha256": "c71796b738ebc9c1fe2988dd5e56865ea02110d87ad1e44b030beac53f13a45d"
+      }
+    ],
+    "historical_patch": {
+      "observed_at_utc": "2026-11-02T06:56:59Z",
+      "patch_sha256": "44a206e5b00b303811f09a4a6085d6ddeb1187fe41638640c768cf3933f995c5",
+      "accepted": [
+        {
+          "version": "v1.14.4",
+          "result": "patch applies (git apply), native v2rayapi tests incl. byte-budget test pass, reproducible build (twice)",
+          "binary_sha256": "5af3ee7c7219120090addebe8acee35ed52e0bbfd769eb11a251eb97723bba9a"
+        },
+        {
+          "version": "v1.14.3",
+          "result": "patch applies (git apply --check); not built or deployed"
+        }
+      ],
+      "rejected": [
+        {
+          "version": "v1.14.2",
+          "error": "Ported patch targets the 1.14.3+ lifecycle (Start(stage, scope)); SBOX 1.1.x packages carry the 1.14.2 core and patch"
+        }
+      ]
+    }
+  }
+}

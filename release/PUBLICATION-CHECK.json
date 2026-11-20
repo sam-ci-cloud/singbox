@@ -1,0 +1,8 @@
+{
+  "scope": "Local pre-publication review of the selected public source and generated Fresh runtime",
+  "result": "PASS",
+  "checks": ["byte-identical approved Fresh manager and patched core", "synthetic and actual owner-private literal checks", "encoded and recursively archived payload review", "project URL and previous distribution reference review", "positive and negative bootstrap tests"],
+  "private_credential_matches": 0,
+  "protected_identity_matches": 0,
+  "external_audit": "Remote history, release and workflow readback is recorded separately after publication."
+}

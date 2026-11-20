@@ -1,0 +1,6 @@
+singbox Fresh Public 1.11.2. Upstream SBOX application and component licenses are retained.
+This distribution retains the SBOX GNU GPL v3 license and the original notices.
+The customized sing-box v1.14.4 source and build scripts are in core-source/.
+Its upstream commit is c005f35300ce76427dc285481ec5695f5b179cd2. The binaries
+are independent derivatives and are not endorsed by SagerNet. Module notices
+are in THIRD_PARTY_LICENSES/, core-source/, and shared_webui/licenses/.
